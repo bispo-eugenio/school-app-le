@@ -1,6 +1,7 @@
 ﻿namespace schoolApp.Models.@abstract;
 
 using Stats = schoolApp.Types.@Enums.Stats;
+using FlagTime = schoolApp.Types.@Enums.FlagTimeDataType;
 
 public abstract class Person
 {
@@ -9,28 +10,27 @@ public abstract class Person
     protected DateTime Birthday { get; set; }
     protected string Cpf { get; set; } = "";
     protected Stats Stats { get; set; }
+    protected DateTime CreateData { get; set; }
+    protected DateTime UpdateData { get; set; }
 
-
-    public static DateTime CreateData
+    protected Person(string firstName, string lastName,
+    DateTime birthday, string cpf, Stats stats)
     {
-        get => CreateData;
-        set => CreateData = value;
+        FirstName = firstName;
+        LastName = lastName;
+        Birthday = birthday;
+        Cpf = cpf;
+        Stats = stats;
     }
 
-    public static DateTime UpdateData
+    public string StringTimeData(FlagTime Time, string format = "dd/MM/yyyy")
     {
-        get => UpdateData;
-        set => UpdateData = value;
-    }
+        if (Time == FlagTime.Create)
+            return CreateData.ToString(format);
+        else if (Time == FlagTime.Update)
+            return UpdateData.ToString(format);
+        return ""; // Colocar uma exceção no lugar da string falsy;
 
-    public string StringCreateData(string format = "dd/MM/YYYY")
-    {
-        return CreateData.ToString(format);
-    }
-
-    public string StringUpdateData(string format = "dd/MM/YYYY")
-    {
-        return UpdateData.ToString(format);
     }
 
     public string GetFullName()
