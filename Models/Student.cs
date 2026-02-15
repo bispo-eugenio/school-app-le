@@ -2,38 +2,63 @@
 
 using Person = schoolApp.Models.@abstract.Person;
 using Stats = schoolApp.Types.@Enums.Stats;
+using Group = schoolApp.Types.@Enums.Group;
+using IStudent = schoolApp.Types.IStudent;
 
-internal class Students
+public class Student : Person, IStudent
 {
-    private class Student : Person
+    private static int _id;
+    private readonly List<double> _grade;
+    private Group Group { get; set; }
+    public int StudentRegister { get; init; }
+
+    public Student(string firstName, string lastName,
+    DateTime birthday,
+    string cpf, Stats stats) : base(firstName,
+    lastName, birthday, cpf, stats)
     {
-        private List<double> Grade { get; set; }
-
-        public Student(string firstName, string lastName,
-        DateTime birthday, string cpf, Stats stats)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            Birthday = birthday;
-            Cpf = cpf;
-            Stats = stats;
-            Grade = [];
-        }
-
-        public Student(string firstName, string lastName,
-         DateTime birthday, string cpf, Stats stats, List<double> grade)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            Birthday = birthday;
-            Cpf = cpf;
-            Stats = stats;
-            Grade = grade;
-        }
-
-
-
-
-
+        StudentRegister = ++_id;
+        _grade = [];
     }
+
+    public Student(string firstName, string lastName,
+    DateTime birthday, string cpf,
+    Stats stats, List<double> grade) : this(firstName,
+        lastName, birthday, cpf, stats)
+    {
+        _grade = grade ?? [];
+    }
+
+    public Student(string firstName, string lastName,
+    DateTime birthday, string cpf, Stats stats,
+    List<double> grade, Group group) : this(firstName,
+    lastName, birthday, cpf, stats)
+    {
+        _grade = grade ?? [];
+        Group = group;
+    }
+
+    public void SetGrade(List<double> grade)
+    {
+        //Refatorar a lógica depois
+        if (grade.Count != 2)
+            throw new("");
+        foreach (var item in grade)
+        {
+            if (item >= 0 && item <= 10)
+                throw new("");
+        }
+        _grade.Clear();
+        foreach (var item in grade)
+        {
+            _grade.Add(item);
+        }
+    }
+    public IReadOnlyList<double> Grade() => _grade;
+
+    public DateTime BirthdayIO { get => Birthday; set => Birthday = value; }
+    public string FirstNameIO { get => FirstName; set => FirstName = value; }
+    public string LastNameIO { get => LastName; set => LastName = value; }
+    public string CpfIO { get => Cpf; set => Cpf = value; }
+    public Group GroupIO { get => Group; set => Group = value; }
 }
