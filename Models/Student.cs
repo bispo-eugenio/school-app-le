@@ -1,6 +1,6 @@
 ﻿namespace schoolApp.Models;
 
-using Person = schoolApp.Models.@abstract.Person;
+using Person = schoolApp.Models.Abstract.Person;
 using Stats = schoolApp.Types.@Enums.Stats;
 using Group = schoolApp.Types.@Enums.Group;
 using IStudent = schoolApp.Types.IStudent;

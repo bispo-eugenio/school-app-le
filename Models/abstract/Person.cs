@@ -1,4 +1,4 @@
-﻿namespace schoolApp.Models.@abstract;
+﻿namespace schoolApp.Models.@Abstract;
 
 using Stats = schoolApp.Types.@Enums.Stats;
 using FlagTime = schoolApp.Types.@Enums.FlagTimeDataType;
@@ -25,11 +25,9 @@ public abstract class Person
 
     public string StringTimeData(FlagTime Time, string format = "dd/MM/yyyy")
     {
-        if (Time == FlagTime.Create)
-            return CreateData.ToString(format);
-        else if (Time == FlagTime.Update)
-            return UpdateData.ToString(format);
-        return ""; // Colocar uma exceção no lugar da string falsy;
+        if (Time != FlagTime.Create && Time != FlagTime.Update)
+            throw new(""); // Colocar uma exceção;
+        return Time == FlagTime.Create ? CreateData.ToString(format) : UpdateData.ToString(format);
 
     }
 
