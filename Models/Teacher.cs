@@ -11,7 +11,7 @@ public class Teacher : Person, ITeacher
     private readonly List<Student> _classroom;
     private const double _salary = 1400;
     private double Salary { get; set; }
-    private Group Group { get; set; }
+    private Group TeacherGroup { get; set; }
     public int TeacherRegister { get; init; }
 
     public Teacher(string firstName, string lastName,
@@ -24,25 +24,21 @@ public class Teacher : Person, ITeacher
     }
 
     public Teacher(string firstName, string lastName,
-    DateTime birthday, string cpf, Stats stats, double salary) : this(
-    firstName, lastName, birthday, cpf, stats)
+    DateTime birthday, string cpf, Stats stats, double? salary = null,
+    List<Student>? classroom = null, Group? group = null) : this(firstName, lastName, birthday, cpf, stats)
     {
-        Salary = salary >= _salary ? salary : _salary;
-    }
-
-    public Teacher(string firstName, string lastName,
-    DateTime birthday, string cpf, Stats stats, List<Student> classroom) :
-    this(firstName, lastName, birthday, cpf, stats)
-    {
-        _classroom = classroom;
-    }
-
-    public Teacher(string firstName, string lastName,
-    DateTime birthday, string cpf, Stats stats, double salary,
-    List<Student> classroom) : this(firstName, lastName, birthday, cpf, stats)
-    {
-        Salary = salary >= _salary ? salary : _salary;
+        TeacherGroup = group == null ? Group.A : group.Value;
+        Salary = SalaryValidation(salary, _salary);
         _classroom = classroom ?? [];
+    }
+
+    static double SalaryValidation(double? salary, double _salary)
+    {
+        if (salary == null)
+            return _salary;
+        if (salary >= _salary)
+            return salary.Value;
+        return _salary;
     }
 
     public void SetClassroom(List<Student> classroom)
@@ -62,7 +58,7 @@ public class Teacher : Person, ITeacher
     public DateTime BirthdayIO { get => Birthday; set => Birthday = value; }
     public string CpfIO { get => Cpf; set => Cpf = value; }
     public Stats StatsIO { get => Stats; set => Stats = value; }
-    public Group GroupIO { get => Group; set => Group = value; }
+    public Group GroupIO { get => TeacherGroup; set => TeacherGroup = value; }
     public double SalaryIO { get => Salary; set => Salary = value; }
 
 }

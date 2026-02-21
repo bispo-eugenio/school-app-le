@@ -14,6 +14,6 @@ public interface IPersonFactory
     Teacher CreateTeacher(string firstname,
     string lastname, DateTime birthday,
     string cpf, Stats stats, double? salary = null,
-    List<Student>? classroom = null);
+    List<Student>? classroom = null, Group? group = null);
 
 }

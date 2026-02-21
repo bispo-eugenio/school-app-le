@@ -11,7 +11,7 @@ public class Student : Person, IStudent
 {
     private static int _id;
     private readonly List<double> _grade;
-    private Group Group { get; set; }
+    private Group StudentGroup { get; set; }
     public int StudentRegister { get; init; }
 
     public Student(string firstName, string lastName,
@@ -24,27 +24,12 @@ public class Student : Person, IStudent
     }
 
     public Student(string firstName, string lastName,
-    DateTime birthday, string cpf,
-    Stats stats, List<double> grade) : this(firstName,
-    lastName, birthday, cpf, stats)
-    {
-        _grade = grade ?? [];
-    }
-
-    public Student(string firstName, string lastName,
-    DateTime birthday, string cpf, Stats stats, Group group) : this(firstName,
-    lastName, birthday, cpf, stats)
-    {
-        Group = group;
-    }
-
-    public Student(string firstName, string lastName,
     DateTime birthday, string cpf, Stats stats,
-    List<double> grade, Group group) : this(firstName,
+    List<double>? grade = null, Group? group = null) : this(firstName,
     lastName, birthday, cpf, stats)
     {
         _grade = grade ?? [];
-        Group = group;
+        StudentGroup = group == null ? Group.A : group.Value;
     }
 
     public void SetGrade(List<double> grade)
@@ -88,5 +73,5 @@ public class Student : Person, IStudent
     public string LastNameIO { get => LastName; set => LastName = value; }
     public string CpfIO { get => Cpf; set => Cpf = value; }
     public Stats StatsIO { get => Stats; set => Stats = value; }
-    public Group GroupIO { get => Group; set => Group = value; }
+    public Group GroupIO { get => StudentGroup; set => StudentGroup = value; }
 }
