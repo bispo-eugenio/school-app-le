@@ -5,7 +5,6 @@ using ITeacher = schoolApp.Types.ITeacher;
 using Stats = schoolApp.Types.Enums.Stats;
 using schoolApp.Types.Enums;
 
-
 public class Teacher : Person, ITeacher
 {
     private static int _id;
@@ -32,6 +31,13 @@ public class Teacher : Person, ITeacher
     }
 
     public Teacher(string firstName, string lastName,
+    DateTime birthday, string cpf, Stats stats, List<Student> classroom) :
+    this(firstName, lastName, birthday, cpf, stats)
+    {
+        _classroom = classroom;
+    }
+
+    public Teacher(string firstName, string lastName,
     DateTime birthday, string cpf, Stats stats, double salary,
     List<Student> classroom) : this(firstName, lastName, birthday, cpf, stats)
     {
@@ -39,7 +45,16 @@ public class Teacher : Person, ITeacher
         _classroom = classroom ?? [];
     }
 
+    public void SetClassroom(List<Student> classroom)
+    {
+        foreach (Student student in classroom)
+        {
+            _classroom.Add(student);
+        }
+    }
+
     public void AddStudent(Student student) => _classroom.Add(student);
+    public void RemoveStudent(Student student) => _classroom.Remove(student);
     public IReadOnlyList<Student> GetStudents() => _classroom;
 
     public string FirstNameIO { get => FirstName; set => FirstName = value; }

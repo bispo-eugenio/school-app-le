@@ -1,4 +1,6 @@
-﻿using Group = schoolApp.Types.@Enums.Group;
+﻿using schoolApp.Types.Enums;
+using Group = schoolApp.Types.@Enums.Group;
+using GradeStats = schoolApp.Types.@Enums.GradeStats;
 
 namespace schoolApp.Types;
 
@@ -10,7 +12,10 @@ public interface IStudent
     string LastNameIO { get; set; }
     string CpfIO { get; set; }
     Group GroupIO { get; set; }
+    Stats StatsIO { get; set; }
 
     IReadOnlyList<double> Grade();
     void SetGrade(List<double> grade);
+    double Average();
+    GradeStats GetGradeStats();
 }

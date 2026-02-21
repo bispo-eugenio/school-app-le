@@ -14,5 +14,8 @@ public interface ITeacher
     double SalaryIO { get; set; }
 
     IReadOnlyList<Student> GetStudents();
+    void SetClassroom(List<Student> students);
     void AddStudent(Student student);
+    void RemoveStudent(Student student);
+
 }
