@@ -12,7 +12,7 @@ public class PersonFactory : IPersonFactory
     public Student CreateStudent(string firstname,
     string lastname, DateTime birthday,
     string cpf, Stats stats,
-    List<double>? grade = null, Group? group = null)
+    List<decimal>? grade = null, Group? group = null)
     {
         return new Student(firstname, lastname,
             birthday, cpf, stats, grade, group);
@@ -20,7 +20,7 @@ public class PersonFactory : IPersonFactory
 
     public Teacher CreateTeacher(string firstname,
     string lastname, DateTime birthday,
-    string cpf, Stats stats, double? salary = null,
+    string cpf, Stats stats, decimal? salary = null,
     List<Student>? classroom = null, Group? group = null)
     {
         return new Teacher(firstname, lastname,

@@ -10,12 +10,12 @@ public interface ITeacherService
 {
     void AddTeacher(string firstname, string lastname,
     DateTime birthday, string cpf, Stats stats,
-    double? salary = null, List<Student>? classroom = null);
+    decimal? salary = null, List<Student>? classroom = null);
     bool RemoveTeacherById(int teacherRegister);
     bool UpdateTeacherById(int teacherRegister, Teacher data);
     Teacher? GetRegisterById(int teacherRegister);
     IReadOnlyList<Teacher> GetAllTeacher();
     IReadOnlyList<Teacher> GetTeacherByGroup(Group group);
     IReadOnlyList<Teacher> GetTeacherByStats(Stats stats);
-    IReadOnlyList<Teacher> GetTeacherBySalary(double value, LogicOperatorMode mode);
+    IReadOnlyList<Teacher> GetTeacherBySalary(decimal value, LogicOperatorMode mode);
 }

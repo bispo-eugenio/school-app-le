@@ -10,10 +10,10 @@ public interface IPersonFactory
     Student CreateStudent(string firstname,
     string lastname, DateTime birthday,
     string cpf, Stats stats,
-    List<double>? grade = null, Group? group = null);
+    List<decimal>? grade = null, Group? group = null);
     Teacher CreateTeacher(string firstname,
     string lastname, DateTime birthday,
-    string cpf, Stats stats, double? salary = null,
+    string cpf, Stats stats, decimal? salary = null,
     List<Student>? classroom = null, Group? group = null);
 
 }

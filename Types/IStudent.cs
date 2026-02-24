@@ -14,8 +14,8 @@ public interface IStudent
     Group GroupIO { get; set; }
     Stats StatsIO { get; set; }
 
-    IReadOnlyList<double> Grade();
-    void SetGrade(List<double> grade);
-    double Average();
+    IReadOnlyList<decimal> Grade();
+    void SetGrade(List<decimal> grade);
+    decimal Average();
     GradeStats GetGradeStats();
 }

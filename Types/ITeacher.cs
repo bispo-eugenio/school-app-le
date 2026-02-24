@@ -11,7 +11,7 @@ public interface ITeacher
     string LastNameIO { get; set; }
     string CpfIO { get; set; }
     Group GroupIO { get; set; }
-    double SalaryIO { get; set; }
+    decimal SalaryIO { get; set; }
 
     IReadOnlyList<Student> GetStudents();
     void SetClassroom(List<Student> students);

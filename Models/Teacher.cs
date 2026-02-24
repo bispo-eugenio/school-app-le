@@ -4,13 +4,14 @@ using Person = schoolApp.Models.@Abstract.Person;
 using ITeacher = schoolApp.Types.ITeacher;
 using Stats = schoolApp.Types.Enums.Stats;
 using schoolApp.Types.Enums;
+using Constants = schoolApp.Utils.Constants;
 
 public class Teacher : Person, ITeacher
 {
     private static int _id;
     private readonly List<Student> _classroom;
-    private const double _salary = 1400;
-    private double Salary { get; set; }
+    private static readonly Constants _constants = new Constants();
+    private decimal Salary { get; set; }
     private Group TeacherGroup { get; set; }
     public int TeacherRegister { get; init; }
 
@@ -19,26 +20,26 @@ public class Teacher : Person, ITeacher
     firstName, lastName, birthday, cpf, stats)
     {
         TeacherRegister = ++_id;
-        Salary = _salary;
+        Salary = _constants.GetSalary;
         _classroom = [];
     }
 
     public Teacher(string firstName, string lastName,
-    DateTime birthday, string cpf, Stats stats, double? salary = null,
+    DateTime birthday, string cpf, Stats stats, decimal? salary = null,
     List<Student>? classroom = null, Group? group = null) : this(firstName, lastName, birthday, cpf, stats)
     {
         TeacherGroup = group == null ? Group.A : group.Value;
-        Salary = SalaryValidation(salary, _salary);
+        Salary = SalaryValidation(salary, _constants.GetSalary);
         _classroom = classroom ?? [];
     }
 
-    static double SalaryValidation(double? salary, double _salary)
+    static decimal SalaryValidation(decimal? salary, decimal baseSalary)
     {
         if (salary == null)
-            return _salary;
-        if (salary >= _salary)
+            return baseSalary;
+        if (salary >= baseSalary)
             return salary.Value;
-        return _salary;
+        return baseSalary;
     }
 
     public void SetClassroom(List<Student> classroom)
@@ -59,6 +60,6 @@ public class Teacher : Person, ITeacher
     public string CpfIO { get => Cpf; set => Cpf = value; }
     public Stats StatsIO { get => Stats; set => Stats = value; }
     public Group GroupIO { get => TeacherGroup; set => TeacherGroup = value; }
-    public double SalaryIO { get => Salary; set => Salary = value; }
+    public decimal SalaryIO { get => Salary; set => Salary = value; }
 
 }

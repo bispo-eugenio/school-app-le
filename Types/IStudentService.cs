@@ -10,14 +10,14 @@ public interface IStudentService
 {
     void AddStudent(string firstname, string lastname,
     DateTime birthday, string cpf, Stats stats,
-    List<double>? grade = null, Group? group = null);
+    List<decimal>? grade = null, Group? group = null);
     bool RemoveStudentById(int studentRegister);
     Student? GetRegisterById(int studentRegister);
     bool UpdateStudentById(int studentRegister, Student data);
-    bool UpdateGradeById(int studentRegister, List<double> grade);
+    bool UpdateGradeById(int studentRegister, List<decimal> grade);
     IReadOnlyList<Student> GetAllStudent();
     IReadOnlyList<Student> GetStudentByGroup(Group group);
     IReadOnlyList<Student> GetStudentByStats(Stats stats);
-    IReadOnlyList<Student> GetStudentsByAverange(double averange, LogicOperatorMode mode);
+    IReadOnlyList<Student> GetStudentsByAverange(decimal averange, LogicOperatorMode mode);
     IReadOnlyList<Student> GetStudentsGradeStats(GradeStats gradeStats);
 }

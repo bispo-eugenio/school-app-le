@@ -6,14 +6,15 @@ using Stats = schoolApp.Types.@Enums.Stats;
 using Group = schoolApp.Types.@Enums.Group;
 using IStudent = schoolApp.Types.IStudent;
 using GradeStats = schoolApp.Types.@Enums.GradeStats;
+using Constants = schoolApp.Utils.Constants;
 
 public class Student : Person, IStudent
 {
     private static int _id;
-    private readonly List<double> _grade;
+    private readonly List<decimal> _grade;
     private Group StudentGroup { get; set; }
     public int StudentRegister { get; init; }
-
+    private static readonly Constants _constants = new Constants();
     public Student(string firstName, string lastName,
     DateTime birthday,
     string cpf, Stats stats) : base(firstName,
@@ -25,21 +26,21 @@ public class Student : Person, IStudent
 
     public Student(string firstName, string lastName,
     DateTime birthday, string cpf, Stats stats,
-    List<double>? grade = null, Group? group = null) : this(firstName,
+    List<decimal>? grade = null, Group? group = null) : this(firstName,
     lastName, birthday, cpf, stats)
     {
         _grade = grade ?? [];
         StudentGroup = group == null ? Group.A : group.Value;
     }
 
-    public void SetGrade(List<double> grade)
+    public void SetGrade(List<decimal> grade)
     {
         //Refatorar a lógica depois
         if (grade.Count != 2)
             throw new("");
         foreach (var item in grade)
         {
-            if (item >= 0 && item <= 10)
+            if (item < 0 && item > 10)
                 throw new("");
         }
         _grade.Clear();
@@ -48,12 +49,12 @@ public class Student : Person, IStudent
             _grade.Add(item);
         }
     }
-    public IReadOnlyList<double> Grade() => _grade;
+    public IReadOnlyList<decimal> Grade() => _grade;
 
-    public double Average()
+    public decimal Average()
     {
-        double result = 0;
-        foreach (double item in _grade)
+        decimal result = 0;
+        foreach (decimal item in _grade)
         {
             result += item;
         }
@@ -63,9 +64,9 @@ public class Student : Person, IStudent
 
     public GradeStats GetGradeStats()
     {
-        double result = Average();
+        decimal result = Average();
 
-        return result >= 7 ? GradeStats.Passed : GradeStats.Failed;
+        return result >= _constants.GetAverange ? GradeStats.Passed : GradeStats.Failed;
     }
 
     public DateTime BirthdayIO { get => Birthday; set => Birthday = value; }

@@ -14,7 +14,7 @@ public class TeacherService : ITeacherService
 
     public void AddTeacher(string firstname, string lastname,
     DateTime birthday, string cpf, Stats stats,
-    double? salary = null, List<Student>? classroom = null)
+    decimal? salary = null, List<Student>? classroom = null)
     {
         Teacher teacher = new PersonFactory().CreateTeacher(firstname, lastname,
         birthday, cpf, stats, salary, classroom);
@@ -82,7 +82,7 @@ public class TeacherService : ITeacherService
         return teachersByStats;
     }
 
-    public IReadOnlyList<Teacher> GetTeacherBySalary(double value, LogicOperatorMode mode)
+    public IReadOnlyList<Teacher> GetTeacherBySalary(decimal value, LogicOperatorMode mode)
     {
         switch (mode)
         {

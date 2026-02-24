@@ -15,7 +15,7 @@ public class StudentService : IStudentService
 
     public void AddStudent(string firstname, string lastname,
     DateTime birthday, string cpf, Stats stats,
-    List<double>? grade = null, Group? group = null)
+    List<decimal>? grade = null, Group? group = null)
     {
         Student student = new PersonFactory().CreateStudent(firstname,
         lastname, birthday, cpf, stats, grade, group);
@@ -59,7 +59,7 @@ public class StudentService : IStudentService
         return false;
     }
 
-    public bool UpdateGradeById(int id, List<double> grade)
+    public bool UpdateGradeById(int id, List<decimal> grade)
     {
         foreach (Student student in students)
         {
@@ -105,7 +105,7 @@ public class StudentService : IStudentService
         return studentsByGradeStats;
     }
 
-    public IReadOnlyList<Student> GetStudentsByAverange(double averange,
+    public IReadOnlyList<Student> GetStudentsByAverange(decimal averange,
     LogicOperatorMode mode)
     {
         switch (mode)
