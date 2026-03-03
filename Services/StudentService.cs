@@ -1,19 +1,21 @@
 ﻿using Student = schoolApp.Models.Student;
-using IStudentService = schoolApp.Types.IStudentService;
 using Group = schoolApp.Types.@Enums.Group;
 using PersonFactory = schoolApp.Models.PersonFactory;
 using Stats = schoolApp.Types.@Enums.Stats;
 using GradeStats = schoolApp.Types.@Enums.GradeStats;
+using EntityProprieties = schoolApp.Types.@Enums.EntityProprieties;
 using LogicOperatorMode = schoolApp.Types.@Enums.LogicOperatorMode;
+using schoolApp.Types;
+using Spectre.Console;
 
 namespace schoolApp.Services;
 
-public class StudentService : IStudentService
+public class StudentService : IService
 {
-    private readonly List<Student> students = [];
+    private static readonly List<Student> students = [];
 
 
-    public void AddStudent(string firstname, string lastname,
+    public void Add(string firstname, string lastname,
     DateTime birthday, string cpf, Stats stats,
     List<decimal>? grade = null, Group? group = null)
     {
@@ -22,65 +24,75 @@ public class StudentService : IStudentService
         students.Add(student);
     }
 
-    public IReadOnlyList<Student> GetAllStudent()
+    public IReadOnlyList<Student> GetAll()
     {
         return students;
     }
 
-    public bool UpdateStudentById(int id, Student data)
+    public bool Update(int id, EntityProprieties property, string? data = null)
     {
-        foreach (Student student in students)
+        Student? student = students.Find((x) => x.StudentRegister == id);
+        if (student != null)
         {
-            if (student.StudentRegister == id)
+            switch (property)
             {
-                student.FirstNameIO = data.FirstNameIO;
-                student.LastNameIO = data.LastNameIO;
-                student.BirthdayIO = data.BirthdayIO;
-                student.CpfIO = data.CpfIO;
-                student.StatsIO = data.StatsIO;
-                student.SetGrade(data.Grade().ToList());
-                student.GroupIO = data.GroupIO;
-                return true;
+                case EntityProprieties.FIRSTNAME:
+                    student.FirstNameIO = data ??= student.FirstNameIO;
+                    break;
+                case EntityProprieties.LASTNAME:
+                    student.LastNameIO = data ??= student.LastNameIO;
+                    break;
+                case EntityProprieties.BIRTHDAY:
+                    student.BirthdayIO =
+                    DateTime.TryParse(data, out DateTime _) ?
+                    DateTime.Parse(data) : student.BirthdayIO;
+                    break;
+                case EntityProprieties.CPF:
+                    student.CpfIO = data ??= student.FirstNameIO;
+                    break;
+                case EntityProprieties.STATS:
+                    student.StatsIO = student.StatsIO == Stats.Enabled ?
+                    Stats.Disabled : Stats.Enabled;
+                    break;
+                default:
+                    throw new NotImplementedException();
             }
+            AnsiConsole.Clear();
+            AnsiConsole.MarkupLine("[bold green]<INFO>Usuário atualizado com sucesso![/]");
+            return true;
         }
+        AnsiConsole.MarkupLine("[bold yellow]<WARNING>Usuário" +
+        " não foi atualizado e/ou não foi cadastrado no sistema![/]");
         return false;
     }
 
-    public bool RemoveStudentById(int id)
+    public bool Remove(int id)
     {
-        foreach (Student student in students)
+        Student? student = students.Find((x) => x.StudentRegister == id);
+        if (student != null && student.StudentRegister == id)
         {
-            if (student.StudentRegister == id)
-            {
-                students.Remove(student);
-                return true;
-            }
+            students.Remove(student);
+            return true;
         }
         return false;
     }
 
     public bool UpdateGradeById(int id, List<decimal> grade)
     {
-        foreach (Student student in students)
+        Student? student = students.Find((x) => x.StudentRegister == id);
+        if (student != null && student.StudentRegister == id)
         {
-            if (student.StudentRegister == id)
-            {
-                student.SetGrade(grade);
-                return true;
-            }
+            student.SetGrade(grade);
+            return true;
         }
         return false;
     }
 
-    public Student? GetRegisterById(int id)
+    public Student? GetRegister(int id)
     {
-        foreach (Student student in students)
-        {
-            if (student.StudentRegister == id)
-            {
-                return student;
-            }
-        }
+        Student? student = students.Find((x) => x.StudentRegister == id);
+        if (student != null && student.StudentRegister == id)
+            return student;
         return null;
     }
 
