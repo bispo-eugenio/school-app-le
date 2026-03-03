@@ -1,12 +1,11 @@
 ﻿namespace schoolApp.Models;
 
 using Person = schoolApp.Models.@Abstract.Person;
-using ITeacher = schoolApp.Types.ITeacher;
 using Stats = schoolApp.Types.Enums.Stats;
 using schoolApp.Types.Enums;
 using Constants = schoolApp.Utils.Constants;
 
-public class Teacher : Person, ITeacher
+public class Teacher : Person
 {
     private static int _id;
     private readonly List<Student> _classroom;

@@ -2,12 +2,11 @@
 
 public enum Group
 {
+    SEMTURMA,
     A,
     B,
     C,
     D,
     E,
-    F,
-    G,
-    H
+
 }

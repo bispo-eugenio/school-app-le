@@ -4,11 +4,10 @@
 using Person = schoolApp.Models.Abstract.Person;
 using Stats = schoolApp.Types.@Enums.Stats;
 using Group = schoolApp.Types.@Enums.Group;
-using IStudent = schoolApp.Types.IStudent;
 using GradeStats = schoolApp.Types.@Enums.GradeStats;
 using Constants = schoolApp.Utils.Constants;
 
-public class Student : Person, IStudent
+public class Student : Person
 {
     private static int _id;
     private readonly List<decimal> _grade;
@@ -30,7 +29,7 @@ public class Student : Person, IStudent
     lastName, birthday, cpf, stats)
     {
         _grade = grade ?? [];
-        StudentGroup = group == null ? Group.A : group.Value;
+        StudentGroup = group == null ? Group.SEMTURMA : group.Value;
     }
 
     public void SetGrade(List<decimal> grade)
@@ -50,6 +49,7 @@ public class Student : Person, IStudent
         }
     }
     public IReadOnlyList<decimal> Grade() => _grade;
+    public string ShowGrade() => $"Nota-1: {_grade[0]}\nNota-2: {_grade[1]}";
 
     public decimal Average()
     {
