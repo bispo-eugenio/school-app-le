@@ -6,13 +6,13 @@ namespace schoolApp.Utils.@Validations;
 public class BirthdayValidation : IValidator<string>
 {
 
-    private static readonly string _format = "dd/MM/YYYY";
+    private static readonly string _format = "dd/MM/yyyy";
 
     public bool IsValid(string datetime)
     {
         return DateTime.TryParseExact(datetime,
-        format: _format, CultureInfo.GetCultureInfo("pt-BR"),
-        DateTimeStyles.AdjustToUniversal, out DateTime datatimeType);
+        _format, CultureInfo.GetCultureInfo("pt-BR"),
+        DateTimeStyles.AdjustToUniversal, out DateTime data);
     }
 
 }
