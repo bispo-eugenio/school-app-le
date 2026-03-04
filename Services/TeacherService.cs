@@ -1,18 +1,14 @@
-﻿using ITeacherService = schoolApp.Types.ITeacherService;
-using Teacher = schoolApp.Models.Teacher;
-using Stats = schoolApp.Types.@Enums.Stats;
-using Student = schoolApp.Models.Student;
-using PersonFactory = schoolApp.Models.PersonFactory;
-using Group = schoolApp.Types.@Enums.Group;
-using LogicOperatorMode = schoolApp.Types.@Enums.LogicOperatorMode;
+﻿using schoolApp.Models;
+using schoolApp.Types.@Enums;
+using Spectre.Console;
 
 namespace schoolApp.Services;
 
-public class TeacherService : ITeacherService
+public class TeacherService
 {
     private readonly List<Teacher> teachers = [];
 
-    public void AddTeacher(string firstname, string lastname,
+    public void Add(string firstname, string lastname,
     DateTime birthday, string cpf, Stats stats,
     decimal? salary = null, List<Student>? classroom = null)
     {
@@ -21,51 +17,69 @@ public class TeacherService : ITeacherService
         teachers.Add(teacher);
     }
 
-    public IReadOnlyList<Teacher> GetAllTeacher()
+    public IReadOnlyList<Teacher> GetAll()
     {
         return teachers;
     }
 
-    public bool UpdateTeacherById(int id, Teacher data)
+    public bool Update(int id, EntityProprieties property, string? data = null)
     {
-        foreach (Teacher teacher in teachers)
+        Teacher? teacher = teachers.Find((x) => x.TeacherRegister == id);
+        if (teacher != null)
         {
-            if (teacher.TeacherRegister == id)
+            switch (property)
             {
-                teacher.FirstNameIO = data.FirstNameIO;
-                teacher.LastNameIO = data.LastNameIO;
-                teacher.BirthdayIO = data.BirthdayIO;
-                teacher.CpfIO = data.CpfIO;
-                teacher.StatsIO = data.StatsIO;
-
-                teacher.GroupIO = data.GroupIO;
-                return true;
+                case EntityProprieties.FIRSTNAME:
+                    teacher.FirstNameIO = data ??= teacher.FirstNameIO;
+                    break;
+                case EntityProprieties.LASTNAME:
+                    teacher.LastNameIO = data ??= teacher.LastNameIO;
+                    break;
+                case EntityProprieties.BIRTHDAY:
+                    teacher.BirthdayIO =
+                    DateTime.TryParse(data, out DateTime _) ?
+                    DateTime.Parse(data) : teacher.BirthdayIO;
+                    break;
+                case EntityProprieties.CPF:
+                    teacher.CpfIO = data ??= teacher.FirstNameIO;
+                    break;
+                case EntityProprieties.STATS:
+                    teacher.StatsIO = teacher.StatsIO == Stats.Enabled ?
+                    Stats.Disabled : Stats.Enabled;
+                    break;
+                case EntityProprieties.SALARY:
+                    teacher.SalaryIO = Decimal.TryParse(data, out decimal _) ?
+                    Decimal.Parse(data) : teacher.SalaryIO;
+                    break;
+                default:
+                    throw new NotImplementedException();
             }
+            AnsiConsole.Clear();
+            AnsiConsole.MarkupLine("[bold green]<INFO>Usuário atualizado com sucesso![/]");
+            return true;
+        }
+        AnsiConsole.MarkupLine("[bold yellow]<WARNING>Usuário" +
+        " não foi atualizado e/ou não foi cadastrado no sistema![/]");
+        return false;
+    }
+
+    public bool Remove(int id)
+    {
+        Teacher? teacher = teachers.Find((x) => x.TeacherRegister == id);
+        if (teacher != null && teacher.TeacherRegister == id)
+        {
+            teachers.Remove(teacher);
+            return true;
         }
         return false;
     }
 
-    public bool RemoveTeacherById(int id)
+    public Teacher? GetRegister(int id)
     {
-        foreach (Teacher teacher in teachers)
+        Teacher? teacher = teachers.Find((x) => x.TeacherRegister == id);
+        if (teacher != null && teacher.TeacherRegister == id)
         {
-            if (teacher.TeacherRegister == id)
-            {
-                teachers.Remove(teacher);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Teacher? GetRegisterById(int id)
-    {
-        foreach (Teacher teacher in teachers)
-        {
-            if (teacher.TeacherRegister == id)
-            {
-                return teacher;
-            }
+            return teacher;
         }
         return null;
     }
@@ -99,7 +113,7 @@ public class TeacherService : ITeacherService
                 Where(teacher => teacher.SalaryIO < value).ToList();
                 return teacherByLowestSalary;
             default:
-                throw new Exception("Operação inválida");
+                throw new NotImplementedException();
         }
     }
 

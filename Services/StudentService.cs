@@ -1,16 +1,10 @@
-﻿using Student = schoolApp.Models.Student;
-using Group = schoolApp.Types.@Enums.Group;
-using PersonFactory = schoolApp.Models.PersonFactory;
-using Stats = schoolApp.Types.@Enums.Stats;
-using GradeStats = schoolApp.Types.@Enums.GradeStats;
-using EntityProprieties = schoolApp.Types.@Enums.EntityProprieties;
-using LogicOperatorMode = schoolApp.Types.@Enums.LogicOperatorMode;
-using schoolApp.Types;
+﻿using schoolApp.Models;
+using schoolApp.Types.@Enums;
 using Spectre.Console;
 
 namespace schoolApp.Services;
 
-public class StudentService : IService
+public class StudentService
 {
     private static readonly List<Student> students = [];
 
@@ -135,7 +129,7 @@ public class StudentService : IService
                 Where(student => student.Average() < averange).ToList();
                 return studentsByLowestAverange;
             default:
-                throw new Exception("Opção inválida");
+                throw new NotImplementedException();
         }
     }
 
