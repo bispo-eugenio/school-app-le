@@ -1,7 +1,5 @@
-﻿using Person = schoolApp.Models.Abstract.Person;
-using Stats = schoolApp.Types.@Enums.Stats;
-using Group = schoolApp.Types.@Enums.Group;
-using GradeStats = schoolApp.Types.@Enums.GradeStats;
+﻿using schoolApp.Models.Abstract;
+using schoolApp.Types.@Enums;
 using schoolApp.Utils;
 
 namespace schoolApp.Models;
@@ -33,13 +31,12 @@ public class Student : Person
 
     public void SetGrade(List<decimal> grade)
     {
-        //Refatorar a lógica depois
         if (grade.Count != 2)
-            throw new("");
+            throw new("Existe uma quantidade incomum de notas.");
         foreach (var item in grade)
         {
             if (item < 0 && item > 10)
-                throw new("");
+                throw new("Existe nota(s) fora do padrão permitido.");
         }
         _grade.Clear();
         foreach (var item in grade)
