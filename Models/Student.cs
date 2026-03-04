@@ -1,11 +1,10 @@
-﻿namespace schoolApp.Models;
-
-
-using Person = schoolApp.Models.Abstract.Person;
+﻿using Person = schoolApp.Models.Abstract.Person;
 using Stats = schoolApp.Types.@Enums.Stats;
 using Group = schoolApp.Types.@Enums.Group;
 using GradeStats = schoolApp.Types.@Enums.GradeStats;
-using Constants = schoolApp.Utils.Constants;
+using schoolApp.Utils;
+
+namespace schoolApp.Models;
 
 public class Student : Person
 {
@@ -13,7 +12,7 @@ public class Student : Person
     private readonly List<decimal> _grade;
     private Group StudentGroup { get; set; }
     public int StudentRegister { get; init; }
-    private static readonly Constants _constants = new Constants();
+    private static readonly ProjectConstants _constants = new();
     public Student(string firstName, string lastName,
     DateTime birthday,
     string cpf, Stats stats) : base(firstName,

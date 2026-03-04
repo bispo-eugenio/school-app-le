@@ -1,6 +1,6 @@
 ﻿namespace schoolApp.Utils;
 
-internal class Constants
+internal class ProjectConstants
 {
     private const decimal averange = 7;
     private const decimal salary = 1400;

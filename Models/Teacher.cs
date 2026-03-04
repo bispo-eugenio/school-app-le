@@ -1,15 +1,14 @@
-﻿namespace schoolApp.Models;
-
-using Person = schoolApp.Models.@Abstract.Person;
-using Stats = schoolApp.Types.Enums.Stats;
+﻿using schoolApp.Models.@Abstract;
 using schoolApp.Types.Enums;
-using Constants = schoolApp.Utils.Constants;
+using schoolApp.Utils;
+
+namespace schoolApp.Models;
 
 public class Teacher : Person
 {
     private static int _id;
     private readonly List<Student> _classroom;
-    private static readonly Constants _constants = new Constants();
+    private static readonly ProjectConstants _constants = new();
     private decimal Salary { get; set; }
     private Group TeacherGroup { get; set; }
     public int TeacherRegister { get; init; }

@@ -1,16 +1,21 @@
 ﻿using schoolApp.Types;
+using System.Globalization;
 namespace schoolApp.Utils.@Validations;
-
 
 public class SalaryValidation : IValidator<string>
 {
-    private static readonly Constants constants = new Constants();
+    private static readonly ProjectConstants constants = new();
     public bool IsValid(string value)
     {
-        if (value.Length == 0 ||
-        double.TryParse(value, out double type) ||
-        String.IsNullOrWhiteSpace(value))
+        if (value.Length == 0
+        && String.IsNullOrWhiteSpace(value))
             return false;
-        return true;
+        if (!Decimal.TryParse(
+            value,
+            NumberStyles.Number,
+            CultureInfo.GetCultureInfo("pt-BR"),
+            out decimal result))
+            return false;
+        return Decimal.Parse(value) >= constants.GetSalary;
     }
 }

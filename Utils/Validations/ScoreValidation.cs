@@ -1,5 +1,4 @@
 ﻿using schoolApp.Types;
-using Spectre.Console;
 using System.Globalization;
 namespace schoolApp.Utils.@Validations;
 
