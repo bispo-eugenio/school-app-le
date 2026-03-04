@@ -10,14 +10,14 @@ public class TeacherService
 
     public void Add(string firstname, string lastname,
     DateTime birthday, string cpf, Stats stats,
-    decimal? salary = null, List<Student>? classroom = null)
+    decimal? salary = null, List<Student>? classroom = null, Group? group = null)
     {
         Teacher teacher = new PersonFactory().CreateTeacher(firstname, lastname,
         birthday, cpf, stats, salary, classroom);
         teachers.Add(teacher);
     }
 
-    public IReadOnlyList<Teacher> GetAll()
+    public List<Teacher> GetAll()
     {
         return teachers;
     }

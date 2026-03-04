@@ -18,7 +18,7 @@ public class StudentService
         students.Add(student);
     }
 
-    public IReadOnlyList<Student> GetAll()
+    public List<Student> GetAll()
     {
         return students;
     }
