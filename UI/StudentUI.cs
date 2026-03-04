@@ -87,12 +87,14 @@ public class StudentUI
             decimal oneValue = Decimal.Parse(GetData(
             _scoreValidation.IsValid,
             "Digite a primeira [bold green]primeiro nota[/]?",
-            "[bold yellow]<WARNING>Nota inválida para cadastrar o estudante.[/]\n"
+            "[bold yellow]<WARNING>Nota inválida para" +
+            " cadastrar o estudante.[/]\n"
             ));
             decimal twoValue = Decimal.Parse(GetData(
             _scoreValidation.IsValid,
             "Digite a [bold green]segunda nota[/]?",
-            "[bold yellow]<WARNING>Nota inválida para cadastrar o estudante.[/]\n"
+            "[bold yellow]<WARNING>Nota inválida para" +
+            " cadastrar o estudante.[/]\n"
             ));
             Stats stats = GetStats();
             _studentService.Add(firstname, lastname,
@@ -107,7 +109,8 @@ public class StudentUI
     {
         try
         {
-            int id = AnsiConsole.Ask<int>("Digite o id do usuário: ");
+            int id = int.Parse(
+            AnsiConsole.Ask<string>("Digite o id do usuário: "));
             var choice = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
             .AddChoices(
@@ -148,8 +151,8 @@ public class StudentUI
                     string birthday = GetData(
                     _birthdayValidation.IsValid,
                     "Qual a [green]data de nascimento[/] do estudante?",
-                    "[bold yellow]<WARNING>Data de nascimento é inválido e/ou" +
-                    "formato incorreto.[/]\n"
+                    "[bold yellow]<WARNING>Data de nascimento é inválido" +
+                    " e/ou formato incorreto.[/]\n"
                     );
                     _studentService.Update(
                     id,
@@ -191,21 +194,26 @@ public class StudentUI
     {
         try
         {
-            int id = AnsiConsole.Ask<int>("Digite o id do usuário: ");
+            int id = int.Parse(
+            AnsiConsole.Ask<string>("Digite o id do usuário: "));
             decimal oneValue = Decimal.Parse(GetData(
             _scoreValidation.IsValid,
             "Digite a primeira [bold green]primeiro nota[/]?",
-            "[bold yellow]<WARNING>Nota inválida para cadastrar o estudante.[/]\n"
+            "[bold yellow]<WARNING>Nota inválida" +
+            " para cadastrar o estudante.[/]\n"
             ));
             decimal twoValue = Decimal.Parse(GetData(
             _scoreValidation.IsValid,
             "Digite a [bold green]segunda nota[/]?",
-            "[bold yellow]<WARNING>Nota inválida para cadastrar o estudante.[/]\n"
+            "[bold yellow]<WARNING>Nota inválida" +
+            " para cadastrar o estudante.[/]\n"
             ));
             if (_studentService.UpdateGradeById(id, [oneValue, twoValue]))
-                AnsiConsole.MarkupLine("[bold green]As notas do estudante foram atualizadas![/]");
+                AnsiConsole.MarkupLine("[bold green]As notas" +
+                " do estudante foram atualizadas![/]");
             else
-                AnsiConsole.MarkupLine("[bold yellow]<WARNING>As notas do estudante não foram atualizadas![/]");
+                AnsiConsole.MarkupLine("[bold yellow]<WARNING>" +
+                "As notas do estudante não foram atualizadas![/]");
         }
         catch (Exception)
         {
@@ -216,7 +224,8 @@ public class StudentUI
     {
         try
         {
-            int id = Int32.Parse(AnsiConsole.Ask<string>("Digite o id do usuário: "));
+            int id = int.Parse(
+            AnsiConsole.Ask<string>("Digite o id do usuário: "));
             Student? student = _studentService.GetRegister(id);
             AnsiConsole.Clear();
             if (student != null)
@@ -226,12 +235,14 @@ public class StudentUI
                 [bold green]Nome Completo:[/] {student.GetFullName()}
                 [bold green]CPF:[/] {student.CpfIO}
                 [bold green]Data de Nascimento:[/] {student.BirthdayIO}
+                [bold green]Turma:[/] {student.GroupIO}
                 [bold green]Média:[/] {student.Average()}
                 [bold green]Status de Aprovação:[/] {student.GetGradeStats()}
                 """
                 );
             else
-                AnsiConsole.MarkupLine("[bold blue]<INFO>Usuário não encontrando![/]");
+                AnsiConsole.MarkupLine("[bold blue]<INFO>" +
+                "Usuário não encontrando![/]");
         }
         catch (Exception)
         {
@@ -245,13 +256,15 @@ public class StudentUI
     {
         try
         {
-            int id = AnsiConsole.Ask<int>("Digite o id do usuário: ");
+            int id = int.Parse(
+            AnsiConsole.Ask<string>("Digite o id do usuário: "));
             AnsiConsole.Clear();
             if (_studentService.Remove(id))
-                AnsiConsole.MarkupLine("[bold green]Usuário removido com sucesso![/]");
+                AnsiConsole.MarkupLine("[bold green]" +
+                "Usuário removido com sucesso![/]");
             else
-                AnsiConsole.MarkupLine("[bold yellow]<WARNING>Usuário não foi " +
-                "removido e/ou não foi encontrado[/]");
+                AnsiConsole.MarkupLine("[bold yellow]<WARNING>Usuário" +
+                " não foi removido e/ou não foi encontrado[/]");
 
         }
         catch (Exception)
@@ -262,7 +275,8 @@ public class StudentUI
 
     }
 
-    public string GetData(Func<string, bool> validation, string message, string exceptionMessage)
+    public string GetData(Func<string, bool> validation,
+    string message, string exceptionMessage)
     {
         while (true)
         {
