@@ -4,8 +4,8 @@ namespace schoolApp.UI;
 
 public class AdvancededConsultUI
 {
-    private static StudentAdvancedConsultUI _studentAdvancedCosnultUI = new StudentAdvancedConsultUI();
-    private static TeacherAdvancedConsultUI _teacherAdvancedCosnultUI = new TeacherAdvancedConsultUI();
+    private static StudentAdvancedConsultUI _studentAdvancedCosnultUI = new();
+    private static TeacherAdvancedConsultUI _teacherAdvancedCosnultUI = new();
     private bool change;
     public void Run()
     {
@@ -15,7 +15,7 @@ public class AdvancededConsultUI
             AnsiConsole.Clear();
             var option = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
-            .Title("[bold green]<------- Opções  ------->[/]")
+            .Title("[bold white]<------- Opções  ------->[/]")
             .AddChoices(
             "1 - Consultar estudantes",
             "2 - Consultar professores",
