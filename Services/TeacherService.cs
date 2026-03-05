@@ -6,7 +6,7 @@ namespace schoolApp.Services;
 
 public class TeacherService
 {
-    private readonly List<Teacher> teachers = [];
+    private static List<Teacher> teachers = [];
 
     public void Add(string firstname, string lastname,
     DateTime birthday, string cpf, Stats stats,
