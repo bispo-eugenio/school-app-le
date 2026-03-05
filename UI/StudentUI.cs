@@ -3,10 +3,11 @@ using schoolApp.Services;
 using schoolApp.Models;
 using schoolApp.Utils.@Validations;
 using schoolApp.Types.@Enums;
+using schoolApp.Models.Abstract;
 
 namespace schoolApp.UI;
 
-public class StudentUI
+public class StudentUI : AbcUI
 {
     private StudentService _studentService = new();
     private NameValidation _nameValidation = new();
@@ -96,7 +97,7 @@ public class StudentUI
             "[bold yellow]<WARNING>Nota inválida para" +
             " cadastrar o estudante.[/]\n"
             ));
-            Stats stats = GetStats();
+            Stats stats = GetStats("O estudante está ativo no sistema?");
             _studentService.Add(firstname, lastname,
              birthday, cpf, stats, [oneValue, twoValue]);
             AnsiConsole.Clear();
@@ -275,38 +276,5 @@ public class StudentUI
 
     }
 
-    public string GetData(Func<string, bool> validation,
-    string message, string exceptionMessage)
-    {
-        while (true)
-        {
-            string data = AnsiConsole.Ask<string>(message);
-            if (!validation(data))
-            {
-                AnsiConsole.Clear();
-                AnsiConsole.Markup(exceptionMessage);
-            }
-            else
-            {
-                AnsiConsole.Clear();
-                return data;
-            }
-        }
-    }
-
-    public Stats GetStats()
-    {
-        while (true)
-        {
-            var statsResult = AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
-            .Title("O estudante está ativo no sistema?")
-            .AddChoices("Ativo", "Desativado")
-            );
-            AnsiConsole.Clear();
-            return statsResult == "Ativo" ?
-            Stats.Enabled : Stats.Disabled;
-        }
-    }
 
 }

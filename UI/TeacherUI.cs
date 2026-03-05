@@ -1,4 +1,5 @@
 ﻿using schoolApp.Models;
+using schoolApp.Models.Abstract;
 using schoolApp.Services;
 using schoolApp.Types.Enums;
 using schoolApp.Utils;
@@ -6,7 +7,7 @@ using schoolApp.Utils.Validations;
 using Spectre.Console;
 namespace schoolApp.UI;
 
-public class TeacherUI
+public class TeacherUI : AbcUI
 {
     private static TeacherService _teacherService = new();
     private static StudentService _studentService = new();
@@ -100,8 +101,8 @@ public class TeacherUI
             + " não são permitidos e/ou formato de dado inválido.[/]\n"
             ));
 
-            Group group = GetGroup();
-            Stats stats = GetStats();
+            Group group = GetGroup("Qual a turma do professor?");
+            Stats stats = GetStats("O professor está ativo no sistema?");
             _teacherService.Add(firstname, lastname,
              birthday, cpf, stats, salary, null, group);
             AnsiConsole.Clear();
@@ -321,69 +322,6 @@ public class TeacherUI
             AnsiConsole.Clear();
             AnsiConsole.MarkupLine($"[bold red]Entrada inválida.[/]");
         }
-    }
-
-    public string GetData(Func<string, bool> validation,
-    string message, string exceptionMessage)
-    {
-        while (true)
-        {
-            string data = AnsiConsole.Ask<string>(message);
-            if (!validation(data))
-            {
-                AnsiConsole.Clear();
-                AnsiConsole.Markup(exceptionMessage);
-            }
-            else
-            {
-                AnsiConsole.Clear();
-                return data;
-            }
-        }
-    }
-
-    public Stats GetStats()
-    {
-        while (true)
-        {
-            var statsResult = AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
-            .Title("O professor está ativo no sistema?")
-            .AddChoices("Ativo", "Desativado")
-            );
-            AnsiConsole.Clear();
-            return statsResult == "Ativo" ?
-            Stats.Enabled : Stats.Disabled;
-        }
-    }
-
-    public Group GetGroup()
-    {
-        while (true)
-        {
-            var groupResult = AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
-            .Title("O professor está ativo no sistema?")
-            .AddChoices(
-            "1 - Turma A", "2 - Turma B",
-            "3 - Turma C", "4 - Turma D",
-            "5 - Turma E"
-            ));
-
-            Group group = groupResult switch
-            {
-                "1 - Turma A" => Group.A,
-                "2 - Turma B" => Group.B,
-                "3 - Turma C" => Group.C,
-                "4 - Turma D" => Group.D,
-                "5 - Turma E" => Group.E,
-                _ => throw new NotImplementedException()
-            };
-
-            AnsiConsole.Clear();
-            return group;
-        }
-
     }
 
 }
