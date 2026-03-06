@@ -168,7 +168,7 @@ public class TeacherUI : AbcUI
                     );
                     _teacherService.Update(
                     id,
-                    EntityProprieties.FIRSTNAME,
+                    EntityProperties.FIRSTNAME,
                     firstname);
                     break;
                 case "2 - Lastname":
@@ -180,7 +180,7 @@ public class TeacherUI : AbcUI
                     );
                     _teacherService.Update(
                     id,
-                    EntityProprieties.LASTNAME,
+                    EntityProperties.LASTNAME,
                     lastname);
                     break;
                 case "3 - Birthday":
@@ -192,7 +192,7 @@ public class TeacherUI : AbcUI
                     );
                     _teacherService.Update(
                     id,
-                    EntityProprieties.BIRTHDAY,
+                    EntityProperties.BIRTHDAY,
                     birthday
                     );
                     break;
@@ -205,14 +205,14 @@ public class TeacherUI : AbcUI
                     );
                     _teacherService.Update(
                     id,
-                    EntityProprieties.CPF,
+                    EntityProperties.CPF,
                     cpf
                     );
                     break;
                 case "5 - Stats":
                     _teacherService.Update(
                     id,
-                    EntityProprieties.STATS
+                    EntityProperties.STATS
                     );
                     break;
                 case "6 - Salary":
@@ -225,7 +225,7 @@ public class TeacherUI : AbcUI
                     );
                     _teacherService.Update(
                     id,
-                    EntityProprieties.SALARY,
+                    EntityProperties.SALARY,
                     salary
                     );
                     break;

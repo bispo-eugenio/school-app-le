@@ -22,32 +22,32 @@ public class TeacherService
         return teachers;
     }
 
-    public bool Update(int id, EntityProprieties property, string? data = null)
+    public bool Update(int id, EntityProperties property, string? data = null)
     {
         Teacher? teacher = teachers.Find((x) => x.TeacherRegister == id);
         if (teacher != null)
         {
             switch (property)
             {
-                case EntityProprieties.FIRSTNAME:
+                case EntityProperties.FIRSTNAME:
                     teacher.FirstNameIO = data ??= teacher.FirstNameIO;
                     break;
-                case EntityProprieties.LASTNAME:
+                case EntityProperties.LASTNAME:
                     teacher.LastNameIO = data ??= teacher.LastNameIO;
                     break;
-                case EntityProprieties.BIRTHDAY:
+                case EntityProperties.BIRTHDAY:
                     teacher.BirthdayIO =
                     DateTime.TryParse(data, out DateTime _) ?
                     DateTime.Parse(data) : teacher.BirthdayIO;
                     break;
-                case EntityProprieties.CPF:
+                case EntityProperties.CPF:
                     teacher.CpfIO = data ??= teacher.FirstNameIO;
                     break;
-                case EntityProprieties.STATS:
+                case EntityProperties.STATS:
                     teacher.StatsIO = teacher.StatsIO == Stats.Enabled ?
                     Stats.Disabled : Stats.Enabled;
                     break;
-                case EntityProprieties.SALARY:
+                case EntityProperties.SALARY:
                     teacher.SalaryIO = Decimal.TryParse(data, out decimal _) ?
                     Decimal.Parse(data) : teacher.SalaryIO;
                     break;
@@ -84,32 +84,32 @@ public class TeacherService
         return null;
     }
 
-    public IReadOnlyList<Teacher> GetTeacherByGroup(Group group)
+    public List<Teacher> GetTeacherByGroup(Group group)
     {
-        IReadOnlyList<Teacher> teachersByGroup = teachers.Where(teacher => teacher.GroupIO == group).ToList();
+        List<Teacher> teachersByGroup = teachers.Where(teacher => teacher.GroupIO == group).ToList();
         return teachersByGroup;
     }
 
-    public IReadOnlyList<Teacher> GetTeacherByStats(Stats stats)
+    public List<Teacher> GetTeacherByStats(Stats stats)
     {
-        IReadOnlyList<Teacher> teachersByStats = teachers.Where(teacher => teacher.StatsIO == stats).ToList();
+        List<Teacher> teachersByStats = teachers.Where(teacher => teacher.StatsIO == stats).ToList();
         return teachersByStats;
     }
 
-    public IReadOnlyList<Teacher> GetTeacherBySalary(decimal value, LogicOperatorMode mode)
+    public List<Teacher> GetTeacherBySalary(decimal value, LogicOperatorMode mode)
     {
         switch (mode)
         {
             case LogicOperatorMode.Equals:
-                IReadOnlyList<Teacher> teachersByEqualsSalary = teachers.
+                List<Teacher> teachersByEqualsSalary = teachers.
                 Where(teacher => teacher.SalaryIO == value).ToList();
                 return teachersByEqualsSalary;
             case LogicOperatorMode.Higher:
-                IReadOnlyList<Teacher> teachersByHighestSalary = teachers.
+                List<Teacher> teachersByHighestSalary = teachers.
                 Where(teacher => teacher.SalaryIO > value).ToList();
                 return teachersByHighestSalary;
             case LogicOperatorMode.Lower:
-                IReadOnlyList<Teacher> teacherByLowestSalary = teachers.
+                List<Teacher> teacherByLowestSalary = teachers.
                 Where(teacher => teacher.SalaryIO < value).ToList();
                 return teacherByLowestSalary;
             default:

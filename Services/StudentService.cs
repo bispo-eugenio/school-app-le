@@ -23,28 +23,28 @@ public class StudentService
         return students;
     }
 
-    public bool Update(int id, EntityProprieties property, string? data = null)
+    public bool Update(int id, EntityProperties property, string? data = null)
     {
         Student? student = students.Find((x) => x.StudentRegister == id);
         if (student != null)
         {
             switch (property)
             {
-                case EntityProprieties.FIRSTNAME:
+                case EntityProperties.FIRSTNAME:
                     student.FirstNameIO = data ??= student.FirstNameIO;
                     break;
-                case EntityProprieties.LASTNAME:
+                case EntityProperties.LASTNAME:
                     student.LastNameIO = data ??= student.LastNameIO;
                     break;
-                case EntityProprieties.BIRTHDAY:
+                case EntityProperties.BIRTHDAY:
                     student.BirthdayIO =
                     DateTime.TryParse(data, out DateTime _) ?
                     DateTime.Parse(data) : student.BirthdayIO;
                     break;
-                case EntityProprieties.CPF:
+                case EntityProperties.CPF:
                     student.CpfIO = data ??= student.FirstNameIO;
                     break;
-                case EntityProprieties.STATS:
+                case EntityProperties.STATS:
                     student.StatsIO = student.StatsIO == Stats.Enabled ?
                     Stats.Disabled : Stats.Enabled;
                     break;
@@ -90,42 +90,42 @@ public class StudentService
         return null;
     }
 
-    public IReadOnlyList<Student> GetStudentByGroup(Group group)
+    public List<Student> GetStudentByGroup(Group group)
     {
-        IReadOnlyList<Student> studentsByGroup = students.Where(student =>
+        List<Student> studentsByGroup = students.Where(student =>
         student.GroupIO == group).ToList();
         return studentsByGroup;
     }
 
-    public IReadOnlyList<Student> GetStudentByStats(Stats stats)
+    public List<Student> GetStudentByStats(Stats stats)
     {
-        IReadOnlyList<Student> studentsByStats = students.Where(student =>
+        List<Student> studentsByStats = students.Where(student =>
         student.StatsIO == stats).ToList();
         return studentsByStats;
     }
 
-    public IReadOnlyList<Student> GetStudentsGradeStats(GradeStats gradeStats)
+    public List<Student> GetStudentsGradeStats(GradeStats gradeStats)
     {
-        IReadOnlyList<Student> studentsByGradeStats = students.Where(student =>
+        List<Student> studentsByGradeStats = students.Where(student =>
          student.GetGradeStats() == gradeStats).ToList();
         return studentsByGradeStats;
     }
 
-    public IReadOnlyList<Student> GetStudentsByAverange(decimal averange,
+    public List<Student> GetStudentsByAverange(decimal averange,
     LogicOperatorMode mode)
     {
         switch (mode)
         {
             case LogicOperatorMode.Equals:
-                IReadOnlyList<Student> studentsByAverange = students.
+                List<Student> studentsByAverange = students.
                 Where(student => student.Average() == averange).ToList();
                 return studentsByAverange;
             case LogicOperatorMode.Higher:
-                IReadOnlyList<Student> studentsByHighestAverange = students.
+                List<Student> studentsByHighestAverange = students.
                 Where(student => student.Average() > averange).ToList();
                 return studentsByHighestAverange;
             case LogicOperatorMode.Lower:
-                IReadOnlyList<Student> studentsByLowestAverange = students.
+                List<Student> studentsByLowestAverange = students.
                 Where(student => student.Average() < averange).ToList();
                 return studentsByLowestAverange;
             default:

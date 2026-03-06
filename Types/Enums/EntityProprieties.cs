@@ -1,7 +1,7 @@
 namespace schoolApp.Types.@Enums;
 
 
-public enum EntityProprieties
+public enum EntityProperties
 {
     FIRSTNAME,
     LASTNAME,
