@@ -1,13 +1,17 @@
 ﻿using Spectre.Console;
 using schoolApp.Services;
+using schoolApp.Models;
+using schoolApp.Utils.Validations;
+using schoolApp.Models.Abstract;
+using schoolApp.Types.Enums;
 
 namespace schoolApp.UI;
 
-public class TeacherAdvancedConsultUI
+public class TeacherAdvancedConsultUI : AbcUI
 {
 
-    private static TeacherService _teacherService = new TeacherService();
-    private static StudentService _studentService = new StudentService();
+    private static TeacherService _teacherService = new();
+    private static SalaryValidation _salaryValidation = new();
 
     private bool change;
     public void Run()
@@ -15,36 +19,78 @@ public class TeacherAdvancedConsultUI
         change = true;
         while (change)
         {
-            AnsiConsole.Clear();
             var option = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
-            .Title("[bold green]<------- Opções  ------->[/]")
+            .Title("[bold white]<------- Opções  ------->[/]")
             .AddChoices(
-            "1 - Consultar por id",
-            "2 - Consultar por turmar",
-            "3 - Consultar por status",
-            "4 - Consultar por salário",
-            "5 - Voltar ao Menu"
+            "1 - Consultar por turma",
+            "2 - Consultar por status",
+            "3 - Consultar por salário",
+            "4 - Voltar ao Menu"
             ));
             switch (option)
             {
-                case "1 - Consultar por id":
-                    Console.WriteLine("0");
+                case "1 - Consultar por turmar":
+                    ConsultByGroup();
                     break;
-                case "2 - Consultar por turmar":
-                    Console.WriteLine("1");
+                case "2 - Consultar por status":
+                    ConsultByStats();
                     break;
-                case "3 - Consultar por status":
-                    Console.WriteLine("1");
+                case "3 - Consultar por salário":
+                    ConsultBySalary();
                     break;
-                case "4 - Consultar por salário":
-                    Console.WriteLine("1");
-                    break;
-                case "5 - Voltar ao Menu":
+                case "4 - Voltar ao Menu":
                     change = false;
                     break;
             }
         }
     }
 
+    public void ConsultByGroup()
+    {
+        var group = GetGroup("Qual o [bold green]grupo[/] dos usuários?");
+        var teachersByGroup =
+        _teacherService.GetTeacherByGroup(group);
+        Table(teachersByGroup,
+        "[bold blue]<INFO>Não conseguimos " +
+        "realizar esse tipo de consulta.[/]");
+    }
+
+    public void ConsultByStats()
+    {
+        var stats = GetStats("Qual o [bold green]status[/] dos usuários?");
+        var teachersByStats = _teacherService.GetTeacherByStats(stats);
+        Table(teachersByStats,
+        "[bold blue]<INFO>Não conseguimos " +
+        "realizar esse tipo de consulta.[/]");
+    }
+
+    public void ConsultBySalary()
+    {
+        decimal value = Decimal.Parse(GetData(
+        _salaryValidation.IsValid,
+        "Digite o valor da [bold green]salário[/]:",
+        "[bold yellow]<WARNING>Valor de salário inválida para" +
+        " consultar.[/]\n"
+        ));
+        string choice = AnsiConsole
+        .Prompt(new SelectionPrompt<string>()
+        .AddChoices(
+        "1 - Igual ao salário",
+        "2 - Maior que o salário",
+        "3 - Menor que o salário"
+        ));
+        LogicOperatorMode mode = choice switch
+        {
+            "1 - Igual ao salário" => LogicOperatorMode.Equals,
+            "2 - Maior que o salário" => LogicOperatorMode.Higher,
+            "3 - Menor que o salário" => LogicOperatorMode.Lower,
+            _ => throw new NotImplementedException()
+        };
+        var teachersBySalary = _teacherService.GetTeacherBySalary(value, mode);
+        Table(teachersBySalary,
+        "[bold blue]<INFO>Não conseguimos " +
+        "realizar esse tipo de consulta.[/]"
+        );
+    }
 }
