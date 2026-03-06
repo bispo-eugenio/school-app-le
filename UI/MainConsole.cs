@@ -6,12 +6,10 @@ public sealed class MainConsole
     private static MainConsole? _instance;
     private bool change = true;
 
-
-    //Refatorar -> Colocar dentro do constrututor
-    private StudentUI _studentUI = new StudentUI();
-    private TeacherUI _teacherUI = new TeacherUI();
-    private ConsultUI _consultUI = new ConsultUI();
-    private AdvancededConsultUI _advancededConsultUI = new AdvancededConsultUI();
+    private StudentUI _studentUI = new();
+    private TeacherUI _teacherUI = new();
+    private ConsultUI _consultUI = new();
+    private AdvancededConsultUI _advancededConsultUI = new();
 
     private MainConsole() { }
 
@@ -28,10 +26,9 @@ public sealed class MainConsole
     {
         while (change)
         {
-            AnsiConsole.Clear();
             var menuPrompt = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
-            .Title("[bold green]<------- Opções  ------->[/]")
+            .Title("[bold white]<------- Opções  ------->[/]")
             .AddChoices(
             "1 - Gerenciar aluno",
             "2 - Gerenciar professor",

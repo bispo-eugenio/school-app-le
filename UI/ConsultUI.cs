@@ -1,7 +1,5 @@
 ﻿using Spectre.Console;
 using schoolApp.Services;
-using schoolApp.Models;
-using System.Formats.Asn1;
 
 namespace schoolApp.UI;
 
