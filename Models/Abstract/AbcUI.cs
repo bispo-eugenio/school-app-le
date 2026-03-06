@@ -68,5 +68,66 @@ public abstract class AbcUI
         }
 
     }
+    public static void Table(List<Student> students, string messageInfo)
+    {
+        var table = new Table();
+        table.AddColumn("Id");
+        table.AddColumn("Firstname");
+        table.AddColumn("Lastname");
+        table.AddColumn("Birthday");
+        table.AddColumn("CPF");
+        table.AddColumn("Grade");
+        table.AddColumn("Group");
+        table.AddColumn("Stats");
+
+        foreach (var student in students)
+        {
+            table.AddRow(
+            Markup.Escape($"{student.StudentRegister}"),
+            Markup.Escape(student.FirstNameIO),
+            Markup.Escape(student.LastNameIO),
+            Markup.Escape($"{student.BirthdayIO}"),
+            Markup.Escape(student.CpfIO),
+            Markup.Escape($"{student.ShowGrade()}"),
+            Markup.Escape($"{student.GroupIO}"),
+            Markup.Escape($"{student.StatsIO}")
+            );
+        }
+        AnsiConsole.Clear();
+        if (students.Count == 0)
+            AnsiConsole.MarkupLine(messageInfo);
+        else
+            AnsiConsole.Write(table);
+    }
+
+    public static void Table(List<Teacher> teachers, string messageInfo)
+    {
+        var table = new Table();
+        table.AddColumn("Id");
+        table.AddColumn("Firstname");
+        table.AddColumn("Lastname");
+        table.AddColumn("Birthday");
+        table.AddColumn("CPF");
+        table.AddColumn("Salary");
+        table.AddColumn("Stats");
+
+        foreach (var teacher in teachers)
+        {
+            table.AddRow(
+            Markup.Escape($"{teacher.TeacherRegister}"),
+            Markup.Escape(teacher.FirstNameIO),
+            Markup.Escape(teacher.LastNameIO),
+            Markup.Escape($"{teacher.BirthdayIO}"),
+            Markup.Escape(teacher.CpfIO),
+            Markup.Escape($"{teacher.SalaryIO}"),
+            Markup.Escape($"{teacher.StatsIO}")
+            );
+        }
+        AnsiConsole.Clear();
+        if (teachers.Count == 0)
+            AnsiConsole.MarkupLine("[bold blue]<INFO>Não tem aluno cadastro no sistema.[/]");
+        else
+            AnsiConsole.Write(table);
+    }
 
 }
