@@ -124,9 +124,11 @@ public class TeacherUI : AbcUI
                 [bold green]Status:[/] {teacher.StatsIO}
                 [bold green]Nome Completo:[/] {teacher.GetFullName()}
                 [bold green]CPF:[/] {teacher.CpfIO}
-                [bold green]Data de Nascimento:[/] {teacher.BirthdayIO}
+                [bold green]Data de Nascimento:[/] {teacher.StringTimeData(FlagTimeDataType.Birthday)}
                 [bold green]Turma:[/] {teacher.GroupIO}
                 [bold green]Salário:[/] {teacher.SalaryIO}
+                [bold green]Data de Criação:[/] {teacher.StringTimeData(FlagTimeDataType.Create)}
+                [bold green]Data de Atualização:[/] {teacher.StringTimeData(FlagTimeDataType.Update)}
                 """
                 );
             else

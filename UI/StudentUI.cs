@@ -235,10 +235,12 @@ public class StudentUI : AbcUI
                 [bold green]Status:[/] {student.StatsIO}
                 [bold green]Nome Completo:[/] {student.GetFullName()}
                 [bold green]CPF:[/] {student.CpfIO}
-                [bold green]Data de Nascimento:[/] {student.BirthdayIO}
+                [bold green]Data de Nascimento:[/] {student.StringTimeData(FlagTimeDataType.Birthday)}
                 [bold green]Turma:[/] {student.GroupIO}
                 [bold green]Média:[/] {student.Average()}
                 [bold green]Status de Aprovação:[/] {student.GetGradeStats()}
+                [bold green]Data de Criação:[/] {student.StringTimeData(FlagTimeDataType.Create)}
+                [bold green]Data de Atualização:[/] {student.StringTimeData(FlagTimeDataType.Update)}
                 """
                 );
             else

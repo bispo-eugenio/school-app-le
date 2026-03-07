@@ -51,7 +51,7 @@ public class TeacherAdvancedConsultUI : AbcUI
         var group = GetGroup("Qual o [bold green]grupo[/] dos usuários?");
         var teachersByGroup =
         _teacherService.GetTeacherByGroup(group);
-        Table(teachersByGroup,
+        TableView(teachersByGroup,
         "[bold blue]<INFO>Não conseguimos " +
         "realizar esse tipo de consulta.[/]");
     }
@@ -60,7 +60,7 @@ public class TeacherAdvancedConsultUI : AbcUI
     {
         var stats = GetStats("Qual o [bold green]status[/] dos usuários?");
         var teachersByStats = _teacherService.GetTeacherByStats(stats);
-        Table(teachersByStats,
+        TableView(teachersByStats,
         "[bold blue]<INFO>Não conseguimos " +
         "realizar esse tipo de consulta.[/]");
     }
@@ -88,7 +88,7 @@ public class TeacherAdvancedConsultUI : AbcUI
             _ => throw new NotImplementedException()
         };
         var teachersBySalary = _teacherService.GetTeacherBySalary(value, mode);
-        Table(teachersBySalary,
+        TableView(teachersBySalary,
         "[bold blue]<INFO>Não conseguimos " +
         "realizar esse tipo de consulta.[/]"
         );

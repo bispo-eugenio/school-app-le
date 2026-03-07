@@ -58,7 +58,7 @@ public class StudentAdvancedConsultUI : AbcUI
         var group = GetGroup("Qual o [bold green]grupo[/] dos usuários?");
         var studentsByGroup =
         _studentService.GetStudentByGroup(group);
-        Table(studentsByGroup,
+        TableView(studentsByGroup,
         "[bold blue]<INFO>Não conseguimos " +
         "realizar esse tipo de consulta.[/]");
     }
@@ -67,7 +67,7 @@ public class StudentAdvancedConsultUI : AbcUI
     {
         var stats = GetStats("Qual o [bold green]status[/] dos usuários?");
         var studentsByStats = _studentService.GetStudentByStats(stats);
-        Table(studentsByStats,
+        TableView(studentsByStats,
         "[bold blue]<INFO>Não conseguimos " +
         "realizar esse tipo de consulta.[/]");
     }
@@ -85,7 +85,7 @@ public class StudentAdvancedConsultUI : AbcUI
         ? GradeStats.Passed : GradeStats.Failed;
 
         var studentByGradeStats = _studentService.GetStudentsGradeStats(result);
-        Table(studentByGradeStats,
+        TableView(studentByGradeStats,
         "[bold blue]<INFO>Não conseguimos " +
         "realizar esse tipo de consulta.[/]");
     }
@@ -113,7 +113,7 @@ public class StudentAdvancedConsultUI : AbcUI
             _ => throw new NotImplementedException()
         };
         var studentByAverange = _studentService.GetStudentsByAverange(value, mode);
-        Table(studentByAverange,
+        TableView(studentByAverange,
         "[bold blue]<INFO>Não conseguimos " +
         "realizar esse tipo de consulta.[/]"
         );
