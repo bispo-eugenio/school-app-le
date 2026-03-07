@@ -33,15 +33,6 @@ public class Teacher : Person
         _classroom = classroom ?? [];
     }
 
-    static decimal SalaryValidation(decimal? salary, decimal baseSalary)
-    {
-        if (salary == null)
-            return baseSalary;
-        if (salary >= baseSalary)
-            return salary.Value;
-        return baseSalary;
-    }
-
     public void SetClassroom(List<Student> classroom)
     {
         RefreshUpdateData();
