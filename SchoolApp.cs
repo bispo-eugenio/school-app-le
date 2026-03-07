@@ -6,7 +6,7 @@ class SchoolApp
 {
     public static void Main()
     {
-        var app = MainConsole.GetMainConsole();
+        var app = new MainConsole();
 
         app.Run();
     }

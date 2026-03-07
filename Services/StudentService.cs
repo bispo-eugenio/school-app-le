@@ -15,7 +15,7 @@ public class StudentService
     DateTime birthday, string cpf, Stats stats,
     List<decimal>? grade = null, Group? group = null)
     {
-        Student student = new PersonFactory().CreateStudent(firstname,
+        Student student = new(firstname,
         lastname, birthday, cPFFormatter.Format(cpf), stats, grade, group);
         students.Add(student);
     }

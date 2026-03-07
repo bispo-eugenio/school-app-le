@@ -14,7 +14,7 @@ public class TeacherService
     DateTime birthday, string cpf, Stats stats,
     decimal? salary = null, List<Student>? classroom = null, Group? group = null)
     {
-        Teacher teacher = new PersonFactory().CreateTeacher(firstname, lastname,
+        Teacher teacher = new(firstname, lastname,
         birthday, cPFFormatter.Format(cpf), stats, salary, classroom);
         teachers.Add(teacher);
     }

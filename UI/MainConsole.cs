@@ -1,26 +1,15 @@
 ﻿using Spectre.Console;
 namespace schoolApp.UI;
 
-public sealed class MainConsole
+public class MainConsole
 {
-    private static MainConsole? _instance;
     private bool change = true;
-
     private StudentUI _studentUI = new();
     private TeacherUI _teacherUI = new();
     private ConsultUI _consultUI = new();
     private AdvancededConsultUI _advancededConsultUI = new();
 
-    private MainConsole() { }
-
-    ///<summary>
-    /// Se _instance for null atribue e retorna _instance,
-    /// caso não seja null, retorna _instance
-    /// </summary>
-    public static MainConsole GetMainConsole()
-    {
-        return _instance ??= new MainConsole();
-    }
+    public MainConsole() { }
 
     public void Run()
     {
