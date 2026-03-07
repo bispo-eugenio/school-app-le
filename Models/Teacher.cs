@@ -33,6 +33,7 @@ public class Teacher : Person
         _classroom = classroom ?? [];
     }
 
+    public List<Student> GetClassroom() => _classroom;
     public void SetClassroom(List<Student> classroom)
     {
         RefreshUpdateData();
@@ -44,7 +45,6 @@ public class Teacher : Person
 
     public void AddStudent(Student student) => _classroom.Add(student);
     public void RemoveStudent(Student student) => _classroom.Remove(student);
-    public IReadOnlyList<Student> GetStudents() => _classroom;
 
     public string FirstNameIO { get => FirstName; set => FirstName = value; }
     public string LastNameIO { get => LastName; set => LastName = value; }

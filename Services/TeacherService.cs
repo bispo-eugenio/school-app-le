@@ -74,6 +74,8 @@ public class TeacherService
         Teacher? teacher = teachers.Find((x) => x.TeacherRegister == id);
         if (teacher != null && teacher.TeacherRegister == id)
         {
+            if (teacher.GetClassroom().Count != 0)
+                return false;
             teachers.Remove(teacher);
             return true;
         }

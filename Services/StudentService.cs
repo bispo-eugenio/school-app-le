@@ -70,6 +70,8 @@ public class StudentService
         Student? student = students.Find((x) => x.StudentRegister == id);
         if (student != null && student.StudentRegister == id)
         {
+            if (student.GroupIO != Group.SEMTURMA)
+                return false;
             students.Remove(student);
             return true;
         }
