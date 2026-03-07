@@ -17,6 +17,8 @@ public class Teacher : Person
     DateTime birthday, string cpf, Stats stats) : base(
     firstName, lastName, birthday, cpf, stats)
     {
+        CreateData = DateTime.Now;
+        RefreshUpdateData();
         TeacherRegister = ++_id;
         Salary = _constants.GetSalary;
         _classroom = [];
@@ -27,7 +29,7 @@ public class Teacher : Person
     List<Student>? classroom = null, Group? group = null) : this(firstName, lastName, birthday, cpf, stats)
     {
         TeacherGroup = group == null ? Group.A : group.Value;
-        Salary = SalaryValidation(salary, _constants.GetSalary);
+        Salary = salary != null ? salary.Value : _constants.GetSalary;
         _classroom = classroom ?? [];
     }
 
@@ -42,6 +44,7 @@ public class Teacher : Person
 
     public void SetClassroom(List<Student> classroom)
     {
+        RefreshUpdateData();
         foreach (Student student in classroom)
         {
             _classroom.Add(student);

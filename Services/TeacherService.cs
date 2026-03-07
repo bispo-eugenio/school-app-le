@@ -30,24 +30,30 @@ public class TeacherService
             switch (property)
             {
                 case EntityProperties.FIRSTNAME:
+                    teacher.RefreshUpdateData();
                     teacher.FirstNameIO = data ??= teacher.FirstNameIO;
                     break;
                 case EntityProperties.LASTNAME:
+                    teacher.RefreshUpdateData();
                     teacher.LastNameIO = data ??= teacher.LastNameIO;
                     break;
                 case EntityProperties.BIRTHDAY:
+                    teacher.RefreshUpdateData();
                     teacher.BirthdayIO =
                     DateTime.TryParse(data, out DateTime _) ?
                     DateTime.Parse(data) : teacher.BirthdayIO;
                     break;
                 case EntityProperties.CPF:
+                    teacher.RefreshUpdateData();
                     teacher.CpfIO = data ??= teacher.FirstNameIO;
                     break;
                 case EntityProperties.STATS:
+                    teacher.RefreshUpdateData();
                     teacher.StatsIO = teacher.StatsIO == Stats.Enabled ?
                     Stats.Disabled : Stats.Enabled;
                     break;
                 case EntityProperties.SALARY:
+                    teacher.RefreshUpdateData();
                     teacher.SalaryIO = Decimal.TryParse(data, out decimal _) ?
                     Decimal.Parse(data) : teacher.SalaryIO;
                     break;

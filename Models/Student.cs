@@ -16,6 +16,8 @@ public class Student : Person
     string cpf, Stats stats) : base(firstName,
     lastName, birthday, cpf, stats)
     {
+        CreateData = DateTime.Now;
+        RefreshUpdateData();
         StudentRegister = ++_id;
         _grade = [];
     }
@@ -31,6 +33,7 @@ public class Student : Person
 
     public void SetGrade(List<decimal> grade)
     {
+        RefreshUpdateData();
         if (grade.Count != 2)
             throw new("Existe uma quantidade incomum de notas.");
         foreach (var item in grade)

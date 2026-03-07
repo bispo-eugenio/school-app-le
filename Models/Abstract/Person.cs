@@ -10,7 +10,7 @@ public abstract class Person
     protected DateTime Birthday { get; set; }
     protected string Cpf { get; set; } = "";
     protected Stats Stats { get; set; }
-    protected DateTime CreateData { get; set; }
+    protected DateTime CreateData { get; init; }
     protected DateTime UpdateData { get; set; }
 
     protected Person(string firstName, string lastName,
@@ -33,6 +33,11 @@ public abstract class Person
             _ => throw new NotImplementedException()
         };
         return stringDate;
+    }
+
+    public void RefreshUpdateData()
+    {
+        UpdateData = DateTime.Now;
     }
 
     public string GetFullName()

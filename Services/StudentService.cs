@@ -31,20 +31,25 @@ public class StudentService
             switch (property)
             {
                 case EntityProperties.FIRSTNAME:
+                    student.RefreshUpdateData();
                     student.FirstNameIO = data ??= student.FirstNameIO;
                     break;
                 case EntityProperties.LASTNAME:
+                    student.RefreshUpdateData();
                     student.LastNameIO = data ??= student.LastNameIO;
                     break;
                 case EntityProperties.BIRTHDAY:
+                    student.RefreshUpdateData();
                     student.BirthdayIO =
                     DateTime.TryParse(data, out DateTime _) ?
                     DateTime.Parse(data) : student.BirthdayIO;
                     break;
                 case EntityProperties.CPF:
+                    student.RefreshUpdateData();
                     student.CpfIO = data ??= student.FirstNameIO;
                     break;
                 case EntityProperties.STATS:
+                    student.RefreshUpdateData();
                     student.StatsIO = student.StatsIO == Stats.Enabled ?
                     Stats.Disabled : Stats.Enabled;
                     break;
