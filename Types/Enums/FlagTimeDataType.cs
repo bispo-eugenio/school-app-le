@@ -2,6 +2,7 @@
 
 public enum FlagTimeDataType
 {
-    Create = 0,
-    Update = 1,
+    Create,
+    Update,
+    Birthday
 }

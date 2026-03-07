@@ -25,9 +25,14 @@ public abstract class Person
 
     public string StringTimeData(FlagTime Time, string format = "dd/MM/yyyy")
     {
-        if (Time != FlagTime.Create && Time != FlagTime.Update)
-                   throw new(""); // Colocar uma exceção;
-        return Time == FlagTime.Create ? CreateData.ToString(format) : UpdateData.ToString(format);
+        string stringDate = Time switch
+        {
+            FlagTime.Create => Birthday.ToString(format),
+            FlagTime.Update => UpdateData.ToString(format),
+            FlagTime.Birthday => Birthday.ToString(format),
+            _ => throw new NotImplementedException()
+        };
+        return stringDate;
     }
 
     public string GetFullName()
