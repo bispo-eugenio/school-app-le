@@ -68,7 +68,7 @@ public abstract class AbcUI
         }
 
     }
-    public static void Table(List<Student> students, string messageInfo)
+    public static void TableView(List<Student> students, string messageInfo)
     {
         var table = new Table();
         table.AddColumn("Id");
@@ -79,6 +79,8 @@ public abstract class AbcUI
         table.AddColumn("Grade");
         table.AddColumn("Group");
         table.AddColumn("Stats");
+        table.AddColumn("CreateData");
+        table.AddColumn("UpdateData");
 
         foreach (var student in students)
         {
@@ -86,11 +88,13 @@ public abstract class AbcUI
             Markup.Escape($"{student.StudentRegister}"),
             Markup.Escape(student.FirstNameIO),
             Markup.Escape(student.LastNameIO),
-            Markup.Escape($"{student.BirthdayIO}"),
+            Markup.Escape($"{student.StringTimeData(FlagTimeDataType.Birthday)}"),
             Markup.Escape(student.CpfIO),
             Markup.Escape($"{student.ShowGrade()}"),
             Markup.Escape($"{student.GroupIO}"),
-            Markup.Escape($"{student.StatsIO}")
+            Markup.Escape($"{student.StatsIO}"),
+            Markup.Escape($"{student.StringTimeData(FlagTimeDataType.Create)}"),
+            Markup.Escape($"{student.StringTimeData(FlagTimeDataType.Update)}")
             );
         }
         AnsiConsole.Clear();
@@ -100,7 +104,7 @@ public abstract class AbcUI
             AnsiConsole.Write(table);
     }
 
-    public static void Table(List<Teacher> teachers, string messageInfo)
+    public static void TableView(List<Teacher> teachers, string messageInfo)
     {
         var table = new Table();
         table.AddColumn("Id");
@@ -110,6 +114,8 @@ public abstract class AbcUI
         table.AddColumn("CPF");
         table.AddColumn("Salary");
         table.AddColumn("Stats");
+        table.AddColumn("CreateData");
+        table.AddColumn("UpdateData");
 
         foreach (var teacher in teachers)
         {
@@ -117,10 +123,12 @@ public abstract class AbcUI
             Markup.Escape($"{teacher.TeacherRegister}"),
             Markup.Escape(teacher.FirstNameIO),
             Markup.Escape(teacher.LastNameIO),
-            Markup.Escape($"{teacher.BirthdayIO}"),
+            Markup.Escape($"{teacher.StringTimeData(FlagTimeDataType.Birthday)}"),
             Markup.Escape(teacher.CpfIO),
             Markup.Escape($"{teacher.SalaryIO}"),
-            Markup.Escape($"{teacher.StatsIO}")
+            Markup.Escape($"{teacher.StatsIO}"),
+            Markup.Escape($"{teacher.StringTimeData(FlagTimeDataType.Create)}"),
+            Markup.Escape($"{teacher.StringTimeData(FlagTimeDataType.Update)}")
             );
         }
         AnsiConsole.Clear();
