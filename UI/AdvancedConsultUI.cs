@@ -2,10 +2,10 @@
 
 namespace schoolApp.UI;
 
-public class AdvancededConsultUI
+public class AdvancedConsultUI
 {
-    private static StudentAdvancedConsultUI _studentAdvancedCosnultUI = new();
-    private static TeacherAdvancedConsultUI _teacherAdvancedCosnultUI = new();
+    private StudentAdvancedConsultUI _studentAdvancedConsultUI = new();
+    private TeacherAdvancedConsultUI _teacherAdvancedConsultUI = new();
     private bool change;
     public void Run()
     {
@@ -24,10 +24,10 @@ public class AdvancededConsultUI
             switch (option)
             {
                 case "1 - Consultar estudantes":
-                    _studentAdvancedCosnultUI.Run();
+                    _studentAdvancedConsultUI.Run();
                     break;
                 case "2 - Consultar professores":
-                    _teacherAdvancedCosnultUI.Run();
+                    _teacherAdvancedConsultUI.Run();
                     break;
                 case "3 - Voltar ao Menu":
                     change = false;

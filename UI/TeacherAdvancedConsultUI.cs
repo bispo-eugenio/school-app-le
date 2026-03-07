@@ -1,6 +1,5 @@
 ﻿using Spectre.Console;
 using schoolApp.Services;
-using schoolApp.Models;
 using schoolApp.Utils.Validations;
 using schoolApp.Models.Abstract;
 using schoolApp.Types.Enums;
@@ -10,8 +9,8 @@ namespace schoolApp.UI;
 public class TeacherAdvancedConsultUI : AbcUI
 {
 
-    private static TeacherService _teacherService = new();
-    private static SalaryValidation _salaryValidation = new();
+    private TeacherService _teacherService = new();
+    private SalaryValidation _salaryValidation = new();
 
     private bool change;
     public void Run()

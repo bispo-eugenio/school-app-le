@@ -9,8 +9,8 @@ namespace schoolApp.UI;
 
 public class TeacherUI : AbcUI
 {
-    private static TeacherService _teacherService = new();
-    private static StudentService _studentService = new();
+    private TeacherService _teacherService = new();
+    private StudentService _studentService = new();
     private NameValidation _nameValidation = new();
     private BirthdayValidation _birthdayValidation = new();
     private CPFValidation _cpfValidation = new();
@@ -249,7 +249,6 @@ public class TeacherUI : AbcUI
         {
             int id = int.Parse(AnsiConsole.Ask<string>("Digite o id do usuário: "));
             AnsiConsole.Clear();
-            AnsiConsole.WriteLine(_teacherService.Remove(id));
             if (_teacherService.Remove(id))
                 AnsiConsole.MarkupLine("[bold green]Usuário removido com sucesso![/]");
             else

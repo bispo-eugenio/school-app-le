@@ -8,7 +8,7 @@ namespace schoolApp.Services;
 public class TeacherService
 {
     private static List<Teacher> teachers = [];
-    private static readonly CPFFormatter cPFFormatter = new();
+    private readonly CPFFormatter cPFFormatter = new();
 
     public void Add(string firstname, string lastname,
     DateTime birthday, string cpf, Stats stats,

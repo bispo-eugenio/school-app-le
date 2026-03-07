@@ -1,6 +1,5 @@
 ﻿using Spectre.Console;
 using schoolApp.Services;
-using schoolApp.Models;
 using schoolApp.Models.Abstract;
 using schoolApp.Utils.Validations;
 using schoolApp.Types.Enums;

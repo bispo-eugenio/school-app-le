@@ -7,7 +7,7 @@ public class MainConsole
     private StudentUI _studentUI = new();
     private TeacherUI _teacherUI = new();
     private ConsultUI _consultUI = new();
-    private AdvancededConsultUI _advancededConsultUI = new();
+    private AdvancedConsultUI _advancedConsultUI = new();
 
     public MainConsole() { }
 
@@ -41,7 +41,7 @@ public class MainConsole
                     break;
                 case "4 - Consulta avançada":
                     AnsiConsole.Clear();
-                    _advancededConsultUI.Run();
+                    _advancedConsultUI.Run();
                     break;
                 case "5 - Sair":
                     AnsiConsole.Clear();

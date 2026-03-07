@@ -8,7 +8,7 @@ public class Teacher : Person
 {
     private static int _id;
     private readonly List<Student> _classroom;
-    private static readonly ProjectConstants _constants = new();
+    private readonly ProjectConstants _constants = new();
     private decimal Salary { get; set; }
     private Group TeacherGroup { get; set; }
     public int TeacherRegister { get; init; }
