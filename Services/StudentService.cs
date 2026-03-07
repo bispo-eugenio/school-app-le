@@ -1,5 +1,6 @@
 ﻿using schoolApp.Models;
 using schoolApp.Types.@Enums;
+using schoolApp.Utils.Formatters;
 using Spectre.Console;
 
 namespace schoolApp.Services;
@@ -7,6 +8,7 @@ namespace schoolApp.Services;
 public class StudentService
 {
     private static readonly List<Student> students = [];
+    private static readonly CPFFormatter cPFFormatter = new();
 
 
     public void Add(string firstname, string lastname,
@@ -14,7 +16,7 @@ public class StudentService
     List<decimal>? grade = null, Group? group = null)
     {
         Student student = new PersonFactory().CreateStudent(firstname,
-        lastname, birthday, cpf, stats, grade, group);
+        lastname, birthday, cPFFormatter.Format(cpf), stats, grade, group);
         students.Add(student);
     }
 
