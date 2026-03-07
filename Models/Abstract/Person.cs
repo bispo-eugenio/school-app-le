@@ -27,7 +27,7 @@ public abstract class Person
     {
         string stringDate = Time switch
         {
-            FlagTime.Create => Birthday.ToString(format),
+            FlagTime.Create => CreateData.ToString(format),
             FlagTime.Update => UpdateData.ToString(format),
             FlagTime.Birthday => Birthday.ToString(format),
             _ => throw new NotImplementedException()
