@@ -70,7 +70,9 @@ public abstract class AbcUI
     }
     public static void TableView(List<Student> students, string messageInfo)
     {
-        var table = new Table();
+        var table = new Table()
+        .BorderColor(Color.Blue).HeavyBorder()
+        .ShowRowSeparators().RightAligned();
         table.AddColumn("Id");
         table.AddColumn("Firstname");
         table.AddColumn("Lastname");
@@ -106,7 +108,9 @@ public abstract class AbcUI
 
     public static void TableView(List<Teacher> teachers, string messageInfo)
     {
-        var table = new Table();
+        var table = new Table()
+        .BorderColor(Color.Orange1).HeavyBorder()
+        .ShowRowSeparators().RightAligned();
         table.AddColumn("Id");
         table.AddColumn("Firstname");
         table.AddColumn("Lastname");
