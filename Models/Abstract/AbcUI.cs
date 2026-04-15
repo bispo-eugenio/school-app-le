@@ -72,7 +72,7 @@ public abstract class AbcUI
     {
         var table = new Table()
         .BorderColor(Color.Blue).HeavyBorder()
-        .ShowRowSeparators().RightAligned();
+        .ShowRowSeparators().LeftAligned();
         table.AddColumn("Id");
         table.AddColumn("Firstname");
         table.AddColumn("Lastname");
@@ -110,7 +110,7 @@ public abstract class AbcUI
     {
         var table = new Table()
         .BorderColor(Color.Orange1).HeavyBorder()
-        .ShowRowSeparators().RightAligned();
+        .ShowRowSeparators().LeftAligned();
         table.AddColumn("Id");
         table.AddColumn("Firstname");
         table.AddColumn("Lastname");
